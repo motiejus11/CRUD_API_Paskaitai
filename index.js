@@ -33,6 +33,11 @@ app.get('/products', async (req, res) => {
     
 });
 
+// /users reikia gauti visų vartotojų sąrašą iš lentelės users
+// 1. API turi prisijungti prie DB
+// 2. Kelia /users
+// 3. Per postman atvaizduoti users JSON formatu
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
