@@ -193,6 +193,7 @@ app.put('/products/:id', async (req, res) => {
 });
 //  DELETE     /products/:id  - istrins users
 app.delete('/products/:id', async (req, res) => {
+    
     try {
         // insert into users (id,username,"password")  values (1000, 'idetasPerInsert','idetasPerInser')
         
@@ -210,6 +211,26 @@ app.delete('/products/:id', async (req, res) => {
     
 });
 
+//Nesaugu API, su siais routes:
+    
+    // GET /products - atvaizduoti visus produktus
+	// GET /products/1 - atvaizduoti konkretų produktą
+	// POST /products - sukurti naują produktą
+	// PUT /products/:id - redaguoti produktą
+	// DELETE /products/:id - ištrinti produktą
+
+    // GET     /users - route mums grazins visus users 
+    // 
+    // 
+    // 
+    // ...
+
+// API su 10 endpoint
+//  GET /products - atvaizduoti visus produktus. 
+    // 1. Kreiptis /products GET
+    // 2. patikrinti ar yra tinkamas response. Status kodo patikra. 200
+    // 3. Reikia response laika
+    // 4. Patikrinti ar ne tuscias ir patikrinti ar tai nera error zinute
 
 
 
