@@ -68,10 +68,32 @@ context('/products', () => {
 
 it('/products vieno produkto bendras testas', () => {
 
+    cy.request("GET","localhost:3000/products/2" ).then((response)=>{
+        expect(response.status).to.be.eq(200);
+        // expect(response.body).length.to.be.above(0); //ilgis daugiau nei 0
+        expect(response.body).to.have.property('id', 2); //error - sita vieta nepraeis
+        expect(response.body).to.have.property('title', 'Antra prekė');
+
+        // expect(response.body).to.have.property('title');
+        
+        // expect()
+        // id == 2 arba title == "Antra prekė" nebutu tuscias
+        cy.log(response.body.id);
+        cy.log(response.body.title);
+        // expect(response.body).length.to.be.greaterThan(0);
+        cy.log(response.body);
+    });
+
     cy.log('pasiruosiau testui')
 });
 it('/products create bendras testas', () => {
+    cy.request("POST", "localhost:3000", {
+        title: "naujaPrekė",
+        description: "naujasAprasymas",
+        price: 4.99
+    }).then((response)=> {
 
+    });
     cy.log('pasiruosiau testui')
 });
 
