@@ -200,9 +200,16 @@ app.delete('/products/:id', async (req, res) => {
 
         const id = req.params.id;
 
-        const results = await pool.query(`delete from products where id = ${id}`);    
+        // const results = await pool.query(`delete from products where id = ${id}`);    
         // const results = await pool.query(`select * from users where id=${id}`);    
-        res.status(200).json({message: 'Elementas sėkmingai ištrintas'});
+        
+
+        res.status(200).json({message: 'Kazkas ivyko blogai'});
+        //
+        // res.status(200).json({message: 'Elementas sėkmingai ištrintas'});
+
+
+
         // res.status(200).json({ message: 'Sėkmingai pasiekiamas produktų puslapis'});
     }
     catch (err) {
