@@ -21,8 +21,8 @@ describe('example to-do app', () => {
   })
 
 
-// pm.test('testo pavadinimas', function() {
-// })
+  // pm.test('testo pavadinimas', function() {
+  // })
 
   it('displays two todo items by default', () => {
     // We use the `cy.get()` command to get all elements that match the selector.
