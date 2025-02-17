@@ -171,9 +171,26 @@ it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
     })
 
 
+    const items = [1, 29, 47];// originalus masyvas 
+    const squareOfItems = []; // tuscias masyvas
+
+    items.forEach(function (item) {
+        squareOfItems.push(item * item); // kuria nauja masyva kur kiekvienas elementas pakeltas 2 laipsniu
+    });
+
+    console.log(squareOfItems);
+
+    //es6 naujesne javascript sintakse
+
     //as dar galiu atlikti testavimus individualiam kiekvieno saraso elementui
+    //li elementu masyvas
     cy.get('ul.todo-list li')
     .each(($el,$list) => {
+        //turetume galimybe atlikti kazkokius tai veiksmus su individualiu saraso elementu
+        //ar elementas netuscias ir t.t.
+
+        //Paspausti kiekviena saraso elementa double click
+        $el.dblclick();
     }) 
     .then(($list) => {
         expect($list).to.have.length(6);
@@ -183,8 +200,6 @@ it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
     //atlieku tiesiog bendro ilgio nustatyma
     cy.get('ul.todo-list li').should('have.length', 6);
 
-
-    console.log()
     
     //1 variantas
     // pridejus 6 uzduotis
@@ -201,4 +216,35 @@ it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
 
  });
 
+
+ it('Ar visi redaguojasi elementai', () => {
+    cy.visit('https://todolist.james.am/#/');
+    cy.get('input.new-todo').type('1 uzduotis{enter}');
+    cy.get('input.new-todo').type('trinama uzduotis{enter}');
+    cy.get('input.new-todo').type('1 uzduotis{enter}');
+    cy.get('input.new-todo').type('trinama uzduotis{enter}');
+    cy.get('input.new-todo').type('1 uzduotis{enter}');
+    cy.get('input.new-todo').type('trinama uzduotis{enter}');
+    cy.get('ul.todo-list li').each(($el, $list) => {
+       $el.dblclick();
+    })
+});
+
 //elementu skaiciavimo susiskaiciuoti kiek mes turim li saraso elementu
+
+//Svetaine prisijungimas ir registracija
+//1.testuoti pacia registracija. Ar galima uzsiregistruoti?
+//2. pati prisijungima. Ar galima prisijungti?
+//3. Integracinis testas: Ar uzsiregistravus galima prisijungti?
+//4. musu rasomas testas tures buti prisijunges prie svetaines, atsiminti kad jis yra prisijunges
+//5. Kaip tas pats funkcionalumas yra atvaizduojamas prisijungusiam ir neprisijungusiam vartotojui
+
+//Prisijungimo atsiminmas(sesijos isaugojimas)
+//Sesija - serverio atminties vieta, kur svetainė gali išsaugoti informaciją
+//Cookie - vieta vartotojo kompiuteryje, kur svetainė gali išsaugoti informaciją
+
+//Kokią info saugau sesijoje? jautrūs duomenys - slaptažodis, prisijungimo vardas, prisijungimo tokenas, asmens informacija...
+// Kokią info saugau cookie? viską, išskyrūs jautrią informaciją
+
+//abiem galima nustatyti laiką, kiek jie egzistuoja
+
