@@ -23,6 +23,7 @@
 it('Ar svetainė leidžia sukurti sausainiuką?', () => {
     cy.visit('https://todolist.james.am/#/');
     cy.setCookie('test', 'test');
+    cy.getCookie('test').should('exist');
 })
 
 //Ar informacija isisaugo po svetainės persikrovimo?
