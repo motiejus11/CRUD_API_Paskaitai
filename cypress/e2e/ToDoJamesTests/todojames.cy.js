@@ -2,37 +2,23 @@
 //cy.visit()
 /// <reference types="cypress" />
 
-it('Create new to do', () => {
 
-    //1. priversti robota suvesti uzduoties pavadinima
-    //1.1 turim pasirinkti ir patikrinti ar input egzistuoja
-    //1.2 turim ivesti konkretu teksta i input
-    
-    
-    //document.querySelector("p");
-    //document.querySelector("#id");
-    //document.querySelector(".class");
+//UZduotis: kad kiekvienas testas naudotu sesija "keletas_uzduociu"
 
-    // document.querySelector("p.header")
-    // document.querySelector("h1#header")
-    
-    //document.getElementById('id')
-    //document.getElementByClass('class') !!!!!!!!!!
-    cy.visit('https://todolist.james.am/#/');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
 
-    // 1 uzduotis arba bus null
-    cy.contains('ul.todo-list li', '1 uzduotis').should('be.visible')
-    // cy.get('ul.todo-list li')
-    //ar 1 uzduotis li elementas yra matomas
-    // cy.get('ul.todo-list li')
-    //cypress bando ieskoti elemento li, kurio turinys yra 1 uzduotis
-    
+describe('TodoJamesTestai', () => {
 
-    // cy.get('ul.todo-list li').invoke('text').should('c')
-    // Patikrinti ar pirma uzduotis atsidure uzduociu sarase
+    beforeEach(() => {
+        //ji ivykdoma pries kiekviena testa
+        //pries kiekviena testa man reikia sesijos duomenu
+        //as kuriu sesija
+        //komanda, kuri man kuria sesija
+        cy.addToDos('kelios_uzduotys');
+        cy.visit('https://todolist.james.am/#/');
+        cy.log('beforeEach veikia')
+    });
 
-});
+
 
 
 //funkcijas
@@ -41,16 +27,10 @@ it('Create new to do', () => {
 //const/let kintamaji kuris atliks cy.session vieta
 
 //beforeeach
-// Cypress komanda sitam veiksmui
+// Cypress komanda sitam veiksmui x
 
 it('Delete new to do', () => {
-    cy.session('sesija', ()=> {
-        cy.visit('https://todolist.james.am/#/');
-        cy.get('input.new-todo').type('1 uzduotis{enter}');
-        cy.get('input.new-todo').type('trinama uzduotis{enter}');
-    })
 // https://todolist.james.am/#/
-        cy.visit('https://todolist.james.am/#/');
     // sudetingesnis variantas
     cy.contains('ul.todo-list li', 'trinama uzduotis').find('button.destroy').invoke('show');
     cy.contains('ul.todo-list li', 'trinama uzduotis').find('button.destroy').click();
@@ -77,15 +57,7 @@ it('Delete new to do', () => {
 })
 
 it('To do item edit', () => {
-    cy.session('sesija', () => {
-        cy.visit('https://todolist.james.am/#/');
-        cy.get('input.new-todo').type('1 uzduotis{enter}');
-        cy.get('input.new-todo').type('2 uzduotis{enter}');
-        cy.get('input.new-todo').type('3 uzduotis{enter}');
-    })
     
-    cy.visit('https://todolist.james.am/#/');
-
     //document.querySelector
 
     //contains
@@ -103,74 +75,10 @@ it('To do item edit', () => {
 
 })
 
-it('Ar <header> elementas atvaizduojamas', () => {
-    //patartina, rekomenduojama kad header elementas svetaineje butu tik vienas
-    //<div class="header">
-    //<table class="header">
-    cy.visit('https://todolist.james.am/#/');
-    cy.get('header').should('exist');
-    cy.get('header').should('be.visible');
-});
-
-it('Ar headeryje(h1 tage) atvaizduojamas tekstas "To Do List"', () => {
-
-    //Ar puslapis matomas vartotojui testas
-    //class title/ page-title ...
-    //pasirenku headeri
-    //teksta kuris yra parasytas h1 tage
-    //pagal SEO reikalavimus, h1 tagas irgi turi buti tik 1
-    cy.visit('https://todolist.james.am/#/');
-    cy.get('header h1').should('exist');
-    cy.get('header h1').should('be.visible');
-    
-    cy.contains('header h1', 'To Do List').should('be.visible');
-    cy.get('header h1').should('have.text', 'To Do List');
-
-});
-
-it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
-   // 'Double-click to edit a toodo'
-    //Ticket Ar atvaizduojamas 'Double-click to edit a todo ne, neatvaizduojama
-    // footer svetaineje 1
-    cy.visit('https://todolist.james.am/#/');
-    
-    //class info <div class="product">
-    // <div class="info"> arba <div class="product-description"
-    //              </div>
-    
-    //id - data-id - elementas.unikalia klase -> elementas
-    cy.contains('footer.info p', 'Double-click to edit a toodo').should('exist');
-    cy.contains('footer.info p', 'Double-click to edit a toodo').should('be.visible');
-    // 'XPath'
-    // '/html/body/div[1]/div/main/div/div/div[2]/div[3]/div[2]/div/div'
-
-});
- it("Ar input laukelyje atvaizduojamas tekstas 'What need's to be done?'", () => {
-    cy.visit('https://todolist.james.am/#/');
-
-
-    //input tago atributa 'placeholder'
-    
-    //pameginti pasirinkti elementa kuris turi placholder atributa ir kurio reiksme yra What need's to be done?
-    cy.get('input.new-todo[placeholder="What need\'s to be done?"]').should('exist');
-    cy.get('input.new-todo[placeholder="What need\'s to be done?"]').should('be.visible');
-    // cy.get('input.new-todo[placeholder]')
-    cy.get('input.new-todo')
-    .should('have.attr','placeholder', "What need's to be done?")
-    .should('be.visible');
- });
-
-
  it("Ar pridėjus kelias užduotis, užduočių sąrašas nėra tuščias", () => {
-
-    cy.addToDos('kelios_uzduotys');
-    cy.visit('https://todolist.james.am/#/');
-
+    //susikuriu sesija, kuri man atsimena 6 uzduotis
     //document.querySelectorAll('ul li') - pati pirma ar visus?
-
     //each
-
-
     // cy.get('ul.todo-list li') - gauti visus li elementus esancius ul
     //cy.get jis gauna visus elementus
     //jis gauna visus 6 elementus
@@ -217,15 +125,8 @@ it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
 
 
  it('Ar visi redaguojasi elementai', () => {
-    cy.visit('https://todolist.james.am/#/');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('trinama uzduotis{enter}');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('trinama uzduotis{enter}');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('trinama uzduotis{enter}');
     cy.get('ul.todo-list li').each(($el, $list) => {
-       $el.dblclick();
+       cy.wrap($el).dblclick();
     })
 });
 
@@ -247,3 +148,92 @@ it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
 
 //abiem galima nustatyti laiką, kiek jie egzistuoja
 
+});
+
+describe('TodoJamesTestaiKuriemsNereikiaBeforeEachSesijos', () => {
+
+    beforeEach(()=> {
+        cy.visit('https://todolist.james.am/#/');
+    });
+
+    it('Create new to do', () => {
+
+        //1. priversti robota suvesti uzduoties pavadinima
+        //1.1 turim pasirinkti ir patikrinti ar input egzistuoja
+        //1.2 turim ivesti konkretu teksta i input
+        
+        
+        //document.querySelector("p");
+        //document.querySelector("#id");
+        //document.querySelector(".class");
+    
+        // document.querySelector("p.header")
+        // document.querySelector("h1#header")
+        
+        //document.getElementById('id')
+        //document.getElementByClass('class') !!!!!!!!!!
+        cy.get('input.new-todo').type('1 uzduotis{enter}');
+    
+        // 1 uzduotis arba bus null
+        cy.contains('ul.todo-list li', '1 uzduotis').should('be.visible')
+        // cy.get('ul.todo-list li')
+        //ar 1 uzduotis li elementas yra matomas
+        // cy.get('ul.todo-list li')
+        //cypress bando ieskoti elemento li, kurio turinys yra 1 uzduotis
+        
+    
+        // cy.get('ul.todo-list li').invoke('text').should('c')
+        // Patikrinti ar pirma uzduotis atsidure uzduociu sarase
+    
+    });
+    it('Ar <header> elementas atvaizduojamas', () => {
+        //patartina, rekomenduojama kad header elementas svetaineje butu tik vienas
+        //<div class="header">
+        //<table class="header">
+        cy.get('header').should('exist');
+        cy.get('header').should('be.visible');
+    });
+    
+    it('Ar headeryje(h1 tage) atvaizduojamas tekstas "To Do List"', () => {
+    
+        //Ar puslapis matomas vartotojui testas
+        //class title/ page-title ...
+        //pasirenku headeri
+        //teksta kuris yra parasytas h1 tage
+        //pagal SEO reikalavimus, h1 tagas irgi turi buti tik 1
+        cy.get('header h1').should('exist');
+        cy.get('header h1').should('be.visible');
+        
+        cy.contains('header h1', 'To Do List').should('be.visible');
+        cy.get('header h1').should('have.text', 'To Do List');
+    
+    });
+    
+    it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
+       // 'Double-click to edit a toodo'
+        //Ticket Ar atvaizduojamas 'Double-click to edit a todo ne, neatvaizduojama
+        // footer svetaineje 1
+        
+        //class info <div class="product">
+        // <div class="info"> arba <div class="product-description"
+        //              </div>
+        
+        //id - data-id - elementas.unikalia klase -> elementas
+        cy.contains('footer.info p', 'Double-click to edit a toodo').should('exist');
+        cy.contains('footer.info p', 'Double-click to edit a toodo').should('be.visible');
+        // 'XPath'
+        // '/html/body/div[1]/div/main/div/div/div[2]/div[3]/div[2]/div/div'
+    
+    });
+     it("Ar input laukelyje atvaizduojamas tekstas 'What need's to be done?'", () => {
+        //input tago atributa 'placeholder'
+        
+        //pameginti pasirinkti elementa kuris turi placholder atributa ir kurio reiksme yra What need's to be done?
+        cy.get('input.new-todo[placeholder="What need\'s to be done?"]').should('exist');
+        cy.get('input.new-todo[placeholder="What need\'s to be done?"]').should('be.visible');
+        // cy.get('input.new-todo[placeholder]')
+        cy.get('input.new-todo')
+        .should('have.attr','placeholder', "What need's to be done?")
+        .should('be.visible');
+     });
+})
