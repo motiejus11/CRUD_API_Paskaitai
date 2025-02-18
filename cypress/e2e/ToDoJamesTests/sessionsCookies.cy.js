@@ -65,10 +65,33 @@ it('Ar informacija isisaugo po svetainės persikrovimo?', () => {
 //ar visi testai po cookie sukurimo mato cookie?
 
 it('Uzeina i svetaine ToDoList', () => {
+    
     cy.visit('https://todolist.james.am/#/');
     cy.getCookie('test').should('exist');
     cy.getCookie('test1').should('exist');
     cy.getCookie('test2').should('exist');
     //sausainiukas cypress aplinkoje egzistuoja tik tam testui!
  })
+
+ //Sesija
+
+ it('Testas su sesija', ()=> {
+    //sita vieta mes tiesiog esam isisaugoje
+    //pati pirma karta kai mes paleidom testa
+    //sesija isisaugojo
+    // sito nebeatlieka
+    cy.session('sesija',() => {
+        cy.visit('https://todolist.james.am/#/');
+        cy.get('input.new-todo').type('1 uzduotis{enter}');
+        cy.setCookie('test', '1');
+    })
+
+    cy.visit('https://todolist.james.am/#/')
+ })
+
+//  it('Testas be sesijos', ()=> {
+//         cy.visit('https://todolist.james.am/#/');
+//         cy.get('input.new-todo').type('1 uzduotis{enter}');
+//  })
+
 

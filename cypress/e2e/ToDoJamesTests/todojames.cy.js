@@ -34,11 +34,23 @@ it('Create new to do', () => {
 
 });
 
+
+//funkcijas
+// ???
+
+//const/let kintamaji kuris atliks cy.session vieta
+
+//beforeeach
+// Cypress komanda sitam veiksmui
+
 it('Delete new to do', () => {
-    cy.visit('https://todolist.james.am/#/');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('trinama uzduotis{enter}');
-    
+    cy.session('sesija', ()=> {
+        cy.visit('https://todolist.james.am/#/');
+        cy.get('input.new-todo').type('1 uzduotis{enter}');
+        cy.get('input.new-todo').type('trinama uzduotis{enter}');
+    })
+// https://todolist.james.am/#/
+        cy.visit('https://todolist.james.am/#/');
     // sudetingesnis variantas
     cy.contains('ul.todo-list li', 'trinama uzduotis').find('button.destroy').invoke('show');
     cy.contains('ul.todo-list li', 'trinama uzduotis').find('button.destroy').click();
@@ -65,11 +77,14 @@ it('Delete new to do', () => {
 })
 
 it('To do item edit', () => {
+    cy.session('sesija', () => {
+        cy.visit('https://todolist.james.am/#/');
+        cy.get('input.new-todo').type('1 uzduotis{enter}');
+        cy.get('input.new-todo').type('2 uzduotis{enter}');
+        cy.get('input.new-todo').type('3 uzduotis{enter}');
+    })
+    
     cy.visit('https://todolist.james.am/#/');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('2 uzduotis{enter}');
-    cy.get('input.new-todo').type('3 uzduotis{enter}');
-
 
     //document.querySelector
 
@@ -147,15 +162,9 @@ it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
 
 
  it("Ar pridėjus kelias užduotis, užduočių sąrašas nėra tuščias", () => {
+
+    cy.addToDos('kelios_uzduotys');
     cy.visit('https://todolist.james.am/#/');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('trinama uzduotis{enter}');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('trinama uzduotis{enter}');
-    cy.get('input.new-todo').type('1 uzduotis{enter}');
-    cy.get('input.new-todo').type('trinama uzduotis{enter}');
-
-
 
     //document.querySelectorAll('ul li') - pati pirma ar visus?
 
@@ -169,16 +178,6 @@ it("Ar atvaizduojamas 'Double-click to edit a todo' tekstas", () => {
     cy.get('ul.todo-list li').each(($el) => {
         cy.log($el)
     })
-
-
-    const items = [1, 29, 47];// originalus masyvas 
-    const squareOfItems = []; // tuscias masyvas
-
-    items.forEach(function (item) {
-        squareOfItems.push(item * item); // kuria nauja masyva kur kiekvienas elementas pakeltas 2 laipsniu
-    });
-
-    console.log(squareOfItems);
 
     //es6 naujesne javascript sintakse
 
