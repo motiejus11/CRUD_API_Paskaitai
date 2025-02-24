@@ -4,3 +4,4 @@ Prekiu atvaizdavimas
 Prekiu pridejimas I krepseli
 Footer atvaizdavimas
 Header atvaizdavimas
+Prekes atidarymas
