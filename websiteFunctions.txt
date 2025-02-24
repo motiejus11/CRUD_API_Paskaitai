@@ -1,0 +1,6 @@
+Prisijungimas
+Registracija
+Prekiu atvaizdavimas
+Prekiu pridejimas I krepseli
+Footer atvaizdavimas
+Header atvaizdavimas
