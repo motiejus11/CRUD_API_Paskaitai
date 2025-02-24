@@ -35,4 +35,4 @@ jobs:
           node index.js
       env:
         CI: true
-    - run: npm cypress run
+    - run: npx cypress run
