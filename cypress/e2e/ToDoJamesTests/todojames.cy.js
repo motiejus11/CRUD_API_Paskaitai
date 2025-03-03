@@ -18,6 +18,32 @@ describe('TodoJamesTestai', () => {
         cy.log('beforeEach veikia')
     });
 
+    it('Add Products in Cart', () => {
+            cy.contains('Products').click();
+            cy.get('.features_items .col-sm-4')
+                .first()
+                .trigger('mouseover')
+                .find('a')
+                .contains('Add to cart')
+                .click();
+ 
+            cy.contains('Continue Shopping').click();
+ 
+            cy.get('.features_items .col-sm-4')
+                .eq(1)
+                .trigger('mouseover')
+                .find('a')
+                .contains('Add to cart')
+                .click();
+ 
+            cy.contains('View Cart').click();
+            cy.get('table.table tbody tr').should('have.length', 2);
+            cy.get('table.table tbody tr').each(($row) => {
+                cy.wrap($row).find('td').eq(1).should('not.be.empty');
+                cy.wrap($row).find('td').eq(2).should('not.be.empty');
+                cy.wrap($row).find('td').eq(3).should('not.be.empty');
+            });
+
 
 
 
@@ -236,4 +262,7 @@ describe('TodoJamesTestaiKuriemsNereikiaBeforeEachSesijos', () => {
         .should('have.attr','placeholder', "What need's to be done?")
         .should('be.visible');
      });
+
+
+     
 })

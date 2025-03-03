@@ -35,6 +35,8 @@ it('Duomenu generavimas', () => {
     cy.writeFile("cypress/fixtures/todos.json", { "todos": tasks});
 })
 
+
+
 it('100 todos suvedimas i ToDoJames svetaine',() => {
     //suvedame 100 uzduociu
     //ir suskaiciuojam ar tikrai 100 uzduociu susivede

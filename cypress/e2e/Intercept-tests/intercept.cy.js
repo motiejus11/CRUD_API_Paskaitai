@@ -101,3 +101,39 @@ it('Get a post/mock a post',() => {
     // cy.wait('@getPostMock').its('response.body').should('exist');
 
 });
+
+
+it.only('Test Case 12: Add Products in Cart', () => {
+  cy.visit('https://automationexercise.com/');
+
+  cy.url().should('eq', 'https://automationexercise.com/');
+  cy.get('body').should('be.visible');
+
+  cy.get('ul.navbar-nav li').contains('Products').click();
+ 
+  cy.get('.productinfo').eq(0).trigger('mouseover');
+  cy.wait(1000);
+  cy.get('div.productinfo').eq(0).contains('Add to cart').click(); // reikia pataisyti tinkamai
+  cy.get('[data-dismiss="modal"]').click();
+ 
+  cy.get('div.productinfo').eq(1).trigger('mouseover');
+  cy.wait(1000);
+  cy.get('div.productinfo').eq(1).contains('Add to cart').click();
+  cy.get('div.modal-body a[href="/view_cart"]').click();
+
+  cy.get('tbody').contains('Blue Top').should('be.visible');
+  cy.get('tbody').contains('Men Tshirt').should('be.visible');
+ 
+  cy.get('#product-1 .cart_price').contains('Rs. 500');
+  cy.get('#product-1 .cart_quantity').contains('1');
+  cy.get('#product-1 .cart_total').contains('Rs. 500');
+
+  cy.get('#product-2 .cart_price').contains('Rs. 400');
+  cy.get('#product-2 .cart_quantity').contains('1');
+  cy.get('#product-2 .cart_total').contains('Rs. 400');
+
+});
+
+
+
+
