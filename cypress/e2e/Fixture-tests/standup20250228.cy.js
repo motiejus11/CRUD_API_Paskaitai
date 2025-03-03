@@ -178,7 +178,7 @@ describe("Test Case 14: Place Order: Register while Checkout", () => {
         $form.on('submit', (e) => {
             e.preventDefault(); // Stop the form from being submitted automatically
         });
-    });
+      });
 
       //paspausti formos mygtuka ranka
       //17. Click 'Pay and Confirm Order' button
@@ -186,6 +186,14 @@ describe("Test Case 14: Place Order: Register while Checkout", () => {
    
       //18. Verify success message 'Your order has been placed successfully!'
      cy.get("#success_message > .alert-success").should("contain.text", "Your order has been placed successfully!");
+
+     cy.get('form#payment-form').then(($form) => {
+      $form.off('submit', (e) => {
+          e.preventDefault(); // Stop the form from being submitted automatically
+      });
+    });
+    cy.get('[data-qa="pay-button"]').click();
+
       
       //19. Click 'Delete Account' button
       cy.contains("Delete Account").click();
