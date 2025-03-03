@@ -188,10 +188,9 @@ describe("Test Case 14: Place Order: Register while Checkout", () => {
      cy.get("#success_message > .alert-success").should("contain.text", "Your order has been placed successfully!");
 
      cy.get('form#payment-form').then(($form) => {
-      $form.off('submit') // Stop the form from being submitted automatically
-      });
+      $form.off('submit');
     });
-    cy.get('[data-qa="pay-button"]').click();
+cy.get('[data-qa="pay-button"]').click();
 
       
       //19. Click 'Delete Account' button
